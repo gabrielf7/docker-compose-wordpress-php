@@ -17,7 +17,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./server/phpmyadmin/uploads.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
+      - ./server/uploads.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
     depends_on: 
       - db
   web:
