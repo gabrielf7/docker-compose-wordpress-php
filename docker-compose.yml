@@ -4,7 +4,10 @@ services:
     image: mysql
     container_name: mysql-container
     command: --default-authentication-plugin=mysql_native_password
-    environment: 
+    environment:
+      MYSQL_DATABASE: devjg
+      MYSQL_USER: devjg
+      MYSQL_PASSWORD: devjg
       MYSQL_ROOT_PASSWORD: devjg
     volumes:
       - ./server/db/data:/var/lib/mysql
@@ -13,20 +16,39 @@ services:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-container
     environment:
+      MYSQL_DATABASE: devjg
+      MYSQL_USER: devjg
+      MYSQL_PASSWORD: devjg
       MYSQL_ROOT_PASSWORD: devjg
     ports:
       - "8080:80"
     volumes:
       - ./server/uploads.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
+    restart: always
     depends_on: 
       - db
+  wordpress:
+    image: wordpress
+    container_name: wordpress-container
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: devjg
+      WORDPRESS_DB_PASSWORD: devjg
+      WORDPRESS_DB_NAME: devjg
+    volumes:
+      - ./www/wp:/var/www/html/
+      - ./www:/var/www/html/wp-content/plugins/meu-plugin
+    restart: always
   web:
     image: webdevops/php-apache:alpine-php7
     container_name: php-container
     restart: always
     volumes:
+      - ./www:/var/www/html/
       - ./www:/app
     ports:
       - "8888:80"
+    depends_on: 
+      - wordpress
     links:
       - db
