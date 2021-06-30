@@ -2,5 +2,5 @@
   <h3>Bem vindos ao Docker Compose</h3>
 <div>
 
-##### |-> Acesse o [Wiki](https://github.com/gabrielf7/DConvertido/wiki) para saber mais
+##### |-> Acesse o [Wiki](https://github.com/gabrielf7/docker-compose-wordpress-php/wiki) para saber mais
   
